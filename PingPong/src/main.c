@@ -100,6 +100,8 @@ int bateu(Bola *bola);
 
 
 
+
+
 /**
  * @brief Game entry point.
  */
@@ -117,7 +119,7 @@ int main( void ) {
     //InitAudioDevice();
 
     // FPS: frames per second
-    SetTargetFPS( 60 );    
+    SetTargetFPS( 9999 );    
 
     // you must load game resources here
 
@@ -216,12 +218,12 @@ void update( float delta ) {
 
             if(vezDe == &jogador1){
 
-                bola.vel.x = 200;
+                bola.vel.x = 400;
                 bola.vel.y = GetRandomValue(0,1) == 0 ? 200 : -200;
 
             } else if(vezDe == &jogador2){
 
-                bola.vel.x = -200;
+                bola.vel.x = -400;
                 bola.vel.y = GetRandomValue(0,1) == 0 ? 200 : -200;
 
             }
@@ -241,6 +243,7 @@ void update( float delta ) {
 
 void draw( void ) {
 
+    DrawFPS(20,20);
     BeginDrawing();
     ClearBackground( BLACK );
 
