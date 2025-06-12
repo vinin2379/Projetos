@@ -119,7 +119,7 @@ int main( void ) {
     //InitAudioDevice();
 
     // FPS: frames per second
-    SetTargetFPS( 9999 );    
+    SetTargetFPS( 60 );    
 
     // you must load game resources here
 
@@ -210,9 +210,12 @@ int main( void ) {
 
 void update( float delta ) {
 
+    atualizarJogador(&jogador1, delta, KEY_W, KEY_S);
+    atualizarJogador(&jogador2, delta, KEY_UP, KEY_DOWN);
+
     if(estado == PARADO){
 
-        if(IsKeyPressed(KEY_ENTER)){
+        if(IsKeyPressed(KEY_ENTER)|| IsKeyPressed(KEY_E)){
 
             estado = JOGANDO;
 
@@ -232,8 +235,7 @@ void update( float delta ) {
 
     }else{
 
-        atualizarJogador(&jogador1, delta, KEY_W, KEY_S);
-        atualizarJogador(&jogador2, delta, KEY_UP, KEY_DOWN);
+        
         atualizarBola(&bola, delta);
     
         resolverColisao(&jogador1, &jogador2, &bola);
@@ -283,6 +285,8 @@ void draw( void ) {
 
         jogador1.pont = 0;
         jogador2.pont = 0;
+        jogador1.pos.y = GetScreenHeight()/2 - (jogador1.dim.y/2);
+        jogador2.pos.y = GetScreenHeight()/2 - (jogador2.dim.y/2);
         bola.pos.x = GetScreenWidth()/2;
         bola.pos.y = GetScreenHeight()/2;
         estado = PARADO;
@@ -387,6 +391,8 @@ void atualizarBola(Bola *bola, float delta){
         jogador1.pont++;
         bola->pos.x = GetScreenWidth()/2;
         bola->pos.y = GetScreenHeight()/2;
+        jogador1.pos.y = GetScreenHeight()/2 - (jogador1.dim.y/2);
+        jogador2.pos.y = GetScreenHeight()/2 - (jogador2.dim.y/2);
         estado = PARADO;
         vezDe = &jogador1;
 
@@ -400,6 +406,8 @@ void atualizarBola(Bola *bola, float delta){
         jogador2.pont++;
         bola->pos.x = GetScreenWidth()/2;
         bola->pos.y = GetScreenHeight()/2;
+        jogador1.pos.y = GetScreenHeight()/2 - (jogador1.dim.y/2);
+        jogador2.pos.y = GetScreenHeight()/2 - (jogador2.dim.y/2);
         estado = PARADO;
         vezDe = &jogador2;
         
@@ -497,5 +505,7 @@ int bateu(Bola *bola){
         
 
     }
+
+    return 0;
 
 }
